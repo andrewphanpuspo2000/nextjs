@@ -3,6 +3,7 @@ import Nav from "./(components)/Nav";
 import { Inter, Lato } from "next/font/google";
 import "../global.css";
 import Footer from "./(components)/Footer";
+import ToastProvider from "./provider/ToastProvider";
 export const metadata: Metadata = {
   title: {
     default: "Apps",
@@ -23,6 +24,7 @@ export default function MarketingLayout({
   return (
     <html lang="en">
       <body className={`${lato.className}`}>
+        <ToastProvider />
         <Nav />
 
         {children}
