@@ -8,7 +8,7 @@ export const GET = async (request: Request) => {
 
     return Response.json({ result, status: "success" }, { status: 200 });
   } catch (err: any) {
-    console.log("erro in fetching");
+    console.log("error in fetching");
     return Response.json(
       { message: err.message, status: "failed" },
       { status: 400 }

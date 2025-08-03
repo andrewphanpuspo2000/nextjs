@@ -1,7 +1,18 @@
+"use client";
 import { Search } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { ChangeEvent } from "react";
 
 const Nav = () => {
+  const router = useRouter();
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("searchTerm", e.target.value);
+
+    const searchQuery = urlParams.toString();
+    router.push(`/search?${searchQuery}`);
+  };
   return (
     <nav className="px-4 md:px-12 py-4 md:py-6 bg-white text-black border-b-[1px] shadow-md">
       <div className="flex justify-between align-center">
@@ -19,6 +30,7 @@ const Nav = () => {
             type="text"
             placeholder="search"
             className="h-[36px] relative pl-10 border-[1px] border-black/[0.7] text-sm rounded-[8px] w-full py-2 px-3 focus:outline-none bg-transparent"
+            onChange={handleOnChange}
           />
         </div>
         <Link href="/add-product">
