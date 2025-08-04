@@ -4,7 +4,7 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 interface Product {
   _id: string;
@@ -12,7 +12,8 @@ interface Product {
   image: string;
   price: number;
 }
-export default function SearchPage() {
+
+const SearchComponent = () => {
   const searchParams = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
 
@@ -39,7 +40,7 @@ export default function SearchPage() {
       className="px-4 md:px-12 py-5 md:py-10 flex justify-center items-center"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        {products.map((prod, index) => (
+        {products.map((prod: Product, index) => (
           <Link href={`/product/${prod._id}`} key={index}>
             <Image
               src={prod.image}
@@ -56,5 +57,12 @@ export default function SearchPage() {
         ))}
       </div>
     </div>
+  );
+};
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchComponent />
+    </Suspense>
   );
 }
